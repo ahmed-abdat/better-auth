@@ -245,4 +245,4 @@ function wildcardMatch(
 	return fn;
 }
 
-export { wildcardMatch, isMatch };
+export { wildcardMatch, isMatch, escapeRegExpString };

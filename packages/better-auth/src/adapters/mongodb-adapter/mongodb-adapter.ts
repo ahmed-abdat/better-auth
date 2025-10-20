@@ -6,6 +6,7 @@ import {
 	type AdapterFactoryCustomizeAdapterCreator,
 } from "../adapter-factory";
 import type { DBAdapterDebugLogOption } from "@better-auth/core/db/adapter";
+import { escapeRegExpString } from "../../utils/wildcard";
 
 export interface MongoDBAdapterConfig {
 	/**
@@ -149,13 +150,13 @@ export const mongodbAdapter = (db: Db, config?: MongoDBAdapterConfig) => {
 							break;
 
 						case "contains":
-							condition = { [field]: { $regex: `.*${value}.*` } };
+							condition = { [field]: { $regex: `.*${escapeRegExpString(value as string)}.*` } };
 							break;
 						case "starts_with":
-							condition = { [field]: { $regex: `${value}.*` } };
+							condition = { [field]: { $regex: `${escapeRegExpString(value as string)}.*` } };
 							break;
 						case "ends_with":
-							condition = { [field]: { $regex: `.*${value}` } };
+							condition = { [field]: { $regex: `.*${escapeRegExpString(value as string)}` } };
 							break;
 						default:
 							throw new Error(`Unsupported operator: ${operator}`);
